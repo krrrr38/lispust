@@ -21,8 +21,16 @@ enum Operand {
 enum Exp {
     Number(i32),
     Bool(bool),
-    Calc { op: Operand, t1: Rc<Exp>, t2: Rc<Exp> },
-    If { cond: Rc<Exp>, if_value: Rc<Exp>, else_value: Rc<Exp> },
+    Calc {
+        op: Operand,
+        t1: Rc<Exp>,
+        t2: Rc<Exp>,
+    },
+    If {
+        cond: Rc<Exp>,
+        if_value: Rc<Exp>,
+        else_value: Rc<Exp>,
+    },
     List(Vec<Exp>),
 }
 
@@ -36,22 +44,34 @@ impl Eval for Exp {
                 match op {
                     Operand::Plus => match (v1, v2) {
                         (Value::Number(v1), Value::Number(v2)) => Ok(Value::Number(v1 + v2)),
-                        (v1, v2) => Err(EvalError::InvalidOperandTypes(String::from("plus"), v1, v2)),
-                    }
+                        (v1, v2) => {
+                            Err(EvalError::InvalidOperandTypes(String::from("plus"), v1, v2))
+                        }
+                    },
                     Operand::Minus => match (v1, v2) {
                         (Value::Number(v1), Value::Number(v2)) => Ok(Value::Number(v1 - v2)),
-                        (v1, v2) => Err(EvalError::InvalidOperandTypes(String::from("minus"), v1, v2)),
-                    }
+                        (v1, v2) => Err(EvalError::InvalidOperandTypes(
+                            String::from("minus"),
+                            v1,
+                            v2,
+                        )),
+                    },
                 }
             }
             Exp::Bool(v) => Ok(Value::Bool(v.clone())),
-            Exp::If { cond, if_value, else_value } => {
+            Exp::If {
+                cond,
+                if_value,
+                else_value,
+            } => {
                 let cond_v = cond.eval()?;
                 match cond_v {
-                    Value::Bool(v) => if v {
-                        if_value.eval()
-                    } else {
-                        else_value.eval()
+                    Value::Bool(v) => {
+                        if v {
+                            if_value.eval()
+                        } else {
+                            else_value.eval()
+                        }
                     }
                     _ => Err(EvalError::InvalidIfCondType(cond_v)),
                 }
@@ -90,12 +110,14 @@ impl StringParser {
                 if head == "(" {
                     self.parse_exps(tail)
                 } else if head == ")" {
-                    Err(ParserError::Invalid("too many close parenthesis".to_string()))
+                    Err(ParserError::Invalid(
+                        "too many close parenthesis".to_string(),
+                    ))
                 } else {
                     self.parse_exp(head).map(|e| (e, tail))
                 }
             }
-            None => Err(ParserError::Invalid("no parenthesis in tokens".to_string()))
+            None => Err(ParserError::Invalid("no parenthesis in tokens".to_string())),
         }
     }
 
@@ -109,20 +131,32 @@ impl StringParser {
                     "+" => {
                         let (t1, remain) = self.parse_tokens(tail)?;
                         let (t2, remain) = self.parse_tokens(remain)?;
-                        let exp = Exp::Calc { op: Operand::Plus, t1: Rc::new(t1), t2: Rc::new(t2) };
+                        let exp = Exp::Calc {
+                            op: Operand::Plus,
+                            t1: Rc::new(t1),
+                            t2: Rc::new(t2),
+                        };
                         return Ok((exp, remain));
                     }
                     "-" => {
                         let (t1, remain) = self.parse_tokens(tail)?;
                         let (t2, remain) = self.parse_tokens(remain)?;
-                        let exp = Exp::Calc { op: Operand::Minus, t1: Rc::new(t1), t2: Rc::new(t2) };
+                        let exp = Exp::Calc {
+                            op: Operand::Minus,
+                            t1: Rc::new(t1),
+                            t2: Rc::new(t2),
+                        };
                         return Ok((exp, remain));
                     }
                     "if" => {
                         let (cond, remain) = self.parse_tokens(tail)?;
                         let (if_value, remain) = self.parse_tokens(remain)?;
                         let (else_value, remain) = self.parse_tokens(remain)?;
-                        let exp = Exp::If { cond: Rc::new(cond), if_value: Rc::new(if_value), else_value: Rc::new(else_value) };
+                        let exp = Exp::If {
+                            cond: Rc::new(cond),
+                            if_value: Rc::new(if_value),
+                            else_value: Rc::new(else_value),
+                        };
                         return Ok((exp, remain));
                     }
                     _ => {
@@ -131,7 +165,7 @@ impl StringParser {
                         current = remain
                     }
                 },
-                None => return Err(ParserError::Invalid("no parenthesis in exp".to_string()))
+                None => return Err(ParserError::Invalid("no parenthesis in exp".to_string())),
             }
         }
     }
@@ -141,7 +175,9 @@ impl StringParser {
             "true" => Ok(Exp::Bool(true)),
             "false" => Ok(Exp::Bool(true)),
             v => {
-                let num: i32 = v.parse().map_err(|e| ParserError::Invalid(format!("{} is not number: {:?}", v, e)))?;
+                let num: i32 = v
+                    .parse()
+                    .map_err(|e| ParserError::Invalid(format!("{} is not number: {:?}", v, e)))?;
                 Ok(Exp::Number(num))
             }
         }
@@ -162,17 +198,17 @@ impl Parser<&str> for StringParser {
     }
 }
 
-fn run(input: &str) -> Result<()> {
+pub fn run(input: &str) -> Result<String> {
     let parser = StringParser {};
     let exp = parser.parse(input)?;
     let ret = exp.eval()?;
-    println!("{:?}", ret);
-    Ok(())
+    Ok(format!("{:?}", ret))
 }
 
-fn main() -> Result<()> {
-    run("(+ 2 3)")?;
-    run("(- 10 3)")?;
-    run("(if true 100 200)")?;
-    Ok(())
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn it_works() {
+        assert_eq!(2 + 2, 4);
+    }
 }
