@@ -1,6 +1,7 @@
 [workspace]
 
 members = [
-    "cmd",
     "core",
+    "cmd",
+    "http-server",
 ]
