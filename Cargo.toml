@@ -1,7 +1,8 @@
 [workspace]
 
 members = [
-    "core",
-    "cmd",
-    "http-server",
+    "lispust-core",
+    "lispust-cmd",
+    "lispust-http",
+    "lispust-grpc",
 ]

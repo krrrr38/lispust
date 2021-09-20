@@ -1,11 +1,14 @@
 [package]
-name = "core"
+name = "lispust-http"
 version = "0.1.0"
-authors = ["krrrr38 <k.kaizu38@gmail.com>"]
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[[bin]]
+name = "http-server"
+path = "src/server.rs"
+
 [dependencies]
-anyhow = "1.0"
-thiserror = "1.0"
+lispust-core = { path = "../lispust-core" }
+actix-web = "3"

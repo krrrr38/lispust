@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package lispust;
+
+service Lispust {
+  rpc Run(RunRequest) returns (RunResponse) {}
+}
+
+message RunRequest {
+  string message = 1;
+}
+
+message RunResponse {
+  string message = 1;
+}

@@ -1,4 +1,4 @@
-extern crate core;
+extern crate lispust_core;
 
 use anyhow::Result;
 
@@ -10,7 +10,7 @@ fn main() -> Result<()> {
 }
 
 fn print_run(input: &str) -> Result<()> {
-    let res = core::run(input)?;
+    let res = lispust_core::run(input)?;
     println!("{}", res);
     Ok(())
 }

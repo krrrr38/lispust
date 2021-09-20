@@ -1,4 +1,4 @@
-extern crate core;
+extern crate lispust_core;
 
 use actix_web::{get, post, App, HttpResponse, HttpServer, Responder};
 
@@ -9,7 +9,7 @@ async fn health() -> impl Responder {
 
 #[post("/lispust")]
 async fn lispust(req_body: String) -> impl Responder {
-    match core::run(&req_body) {
+    match lispust_core::run(&req_body) {
         Ok(ret) => HttpResponse::Ok().body(ret),
         Err(e) => HttpResponse::BadRequest().body(e.to_string()),
     }
