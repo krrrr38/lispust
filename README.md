@@ -14,19 +14,6 @@ toy lisp-ish language
 > cargo build -p lispust-http --bin http-server
 ```
 
-Now you can post from other tty
-```
-> curl -XPOST -d'(+ 3 5)' localhost:8080/lispust
-Number(8)
-```
-
-## http-server
-
-```sh
-> cargo build -p lispust-http --bin http-server
-```
-
-Now you can post from other tty
 ```
 > curl -XPOST -d'(+ 3 5)' localhost:8080/lispust
 Number(8)
