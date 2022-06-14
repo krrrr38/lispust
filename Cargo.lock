@@ -753,7 +753,7 @@ dependencies = [
  "http",
  "indexmap",
  "slab",
- "tokio 1.11.0",
+ "tokio 1.13.1",
  "tokio-util 0.6.8",
  "tracing",
 ]
@@ -845,7 +845,7 @@ dependencies = [
  "itoa",
  "pin-project-lite 0.2.7",
  "socket2 0.4.2",
- "tokio 1.11.0",
+ "tokio 1.13.1",
  "tower-service",
  "tracing",
  "want",
@@ -859,7 +859,7 @@ checksum = "bbb958482e8c7be4bc3cf272a766a2b0bf1a6755e7a6ae777f017a31d11b13b1"
 dependencies = [
  "hyper",
  "pin-project-lite 0.2.7",
- "tokio 1.11.0",
+ "tokio 1.13.1",
  "tokio-io-timeout",
 ]
 
@@ -985,7 +985,7 @@ version = "0.1.0"
 dependencies = [
  "lispust-core",
  "prost",
- "tokio 1.11.0",
+ "tokio 1.13.1",
  "tonic",
  "tonic-build",
 ]
@@ -1846,9 +1846,9 @@ dependencies = [
 
 [[package]]
 name = "tokio"
-version = "1.11.0"
+version = "1.13.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b4efe6fc2395938c8155973d7be49fe8d03a843726e285e100a8a383cc0154ce"
+checksum = "52963f91310c08d91cb7bff5786dfc8b79642ab839e188187e92105dbfb9d2c8"
 dependencies = [
  "autocfg",
  "bytes 1.1.0",
@@ -1868,7 +1868,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "90c49f106be240de154571dd31fbe48acb10ba6c6dd6f6517ad603abffa42de9"
 dependencies = [
  "pin-project-lite 0.2.7",
- "tokio 1.11.0",
+ "tokio 1.13.1",
 ]
 
 [[package]]
@@ -1890,7 +1890,7 @@ checksum = "7b2f3f698253f03119ac0102beaa64f67a67e08074d03a22d18784104543727f"
 dependencies = [
  "futures-core",
  "pin-project-lite 0.2.7",
- "tokio 1.11.0",
+ "tokio 1.13.1",
 ]
 
 [[package]]
@@ -1918,7 +1918,7 @@ dependencies = [
  "futures-sink",
  "log",
  "pin-project-lite 0.2.7",
- "tokio 1.11.0",
+ "tokio 1.13.1",
 ]
 
 [[package]]
@@ -1942,7 +1942,7 @@ dependencies = [
  "pin-project 1.0.8",
  "prost",
  "prost-derive",
- "tokio 1.11.0",
+ "tokio 1.13.1",
  "tokio-stream",
  "tokio-util 0.6.8",
  "tower",
@@ -1976,7 +1976,7 @@ dependencies = [
  "pin-project 1.0.8",
  "rand 0.8.4",
  "slab",
- "tokio 1.11.0",
+ "tokio 1.13.1",
  "tokio-stream",
  "tokio-util 0.6.8",
  "tower-layer",
